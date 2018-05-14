@@ -43,4 +43,8 @@ ORDER BY SUM(amount) DESC;
 SELECT title from film where title not in (SELECT title
 from film inner join `inventory` using (film_id));
 
+#or
 
+SELECT DISTINCT film.title
+FROM film LEFT JOIN inventory USING (film_id) 
+where inventory.inventory_id IS NULL;
