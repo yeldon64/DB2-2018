@@ -1,0 +1,2 @@
+#1)
+select title, name , case rating when "G" then "General Audience" when "PG" then "Parent Guidance Sugested" when "PG-13" then "parent" when "R" then "Restricted" when "NC-17" then "asd"  end from film inner join language using (language_id);

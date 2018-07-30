@@ -36,13 +36,34 @@ END;
 
 
 #4) 
+SELECT * FROM rental WHERE return_date IS NULL ORDER BY rental_date DESC LIMIT 1;
+
+
 UPDATE rental
 SET return_date = CURRENT_DATE()
-WHERE rental_id = 14098;
+WHERE rental_id = 16050;
 
-UPDATE payment 
-SET amount = amount + 4.99, payment_date = CURRENT_DATE()
-WHERE rental_id = 14098;
+#UPDATE payment 
+#SET amount = amount + 4.99, payment_date = CURRENT_DATE()
+#WHERE rental_id = 14098;
 
 
 #5)
+DELETE FROM film WHERE film_id= 1;
+
+--Cannot delete or update a parent row: a foreign key constraint fails (`sakila`.`film_actor`, CONSTRAINT `fk_film_actor_film` FOREIGN KEY (`film_id`) REFERENCES `film` (`film_id`) ON UPDATE CASCADE)
+-- no se puede eliminar porque la pelicula contiene una foreign key a la tabla film_actor
+
+DELETE payment FROM rental 	INNER JOIN payment USING (rental_id) INNER JOIN inventory USING (inventory_id) WHERE film_id = 1;
+DELETE rental FROM inventory INNER JOIN rental USING (inventory_id)	WHERE film_id = 1;
+DELETE FROM inventory WHERE film_id = 1;
+DELETE film_actor FROM film_actor WHERE film_id = 1;
+DELETE film_category FROM film_category WHERE film_id = 1;
+DELETE film FROM film WHERE film_id = 1;
+
+#6)
+
+
+
+
+
